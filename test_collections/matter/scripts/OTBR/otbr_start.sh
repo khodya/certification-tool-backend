@@ -79,7 +79,7 @@ if [ ! -e "$RCP_DEVICE" ]; then
 fi
 
 print_script_step "Starting 'otbr-chip' container"
-AVAHI_PATH=$ROOT_DIR/backend/app/otbr_manager/avahi
+AVAHI_PATH=$ROOT_DIR/backend/test_collections/matter/sdk_tests/support/otbr_manager/avahi
 sudo modprobe ip6table_filter || exit 1
 sudo docker run --privileged -d --network host --name otbr-chip -e NAT64=1 -e DNS64=0 -e WEB_GUI=0 -v "$AVAHI_PATH:/etc/avahi" -v "$RCP_DEVICE:/dev/radio" "$BR_IMAGE" --radio-url spinel+hdlc+uart:///dev/radio?uart-baudrate=115200 -B "$BR_INTERFACE" || exit 1
 
